@@ -15,8 +15,8 @@ type Member = {
   twitter?: string;
 };
 
-// Executive leadership — fill in as we go.
-const Leadership: Member[] = [
+// Executive leadership.
+const ExecutiveLeadership: Member[] = [
   {
     name: 'Sushi Mulugu',
     role: 'Founder',
@@ -30,6 +30,10 @@ const Leadership: Member[] = [
     linkedin: 'https://www.linkedin.com/in/jayantguduru/',
     image: '/assets/team/Jayant.jpg',
   },
+];
+
+// Delivery leadership.
+const DeliveryLeadership: Member[] = [
   {
     name: 'Jennifer David',
     role: 'Delivery Lead',
@@ -48,7 +52,13 @@ const Leadership: Member[] = [
     linkedin: 'https://www.linkedin.com/in/sanjay-bhatt-94882613/',
     image: '/assets/team/Sanjay.jpg',
   },
+  {},
 ];
+
+// Leadership is shown as ONE flat section for now.
+// Flip to true to split into Executive vs Delivery leadership (planned ~6 months out).
+const SPLIT_LEADERSHIP = false;
+const Leadership: Member[] = [...ExecutiveLeadership, ...DeliveryLeadership].filter((m) => m.name);
 
 // Delivery team — first entry tagged; rest are placeholders for now.
 const Team: Member[] = [
@@ -133,7 +143,12 @@ const Team: Member[] = [
     linkedin: 'https://www.linkedin.com/in/anusha-kondala/',
     image: '/assets/team/Anusha.jpg',
   },
-  ...Array.from({ length: 7 }).map(() => ({} as Member)),
+  {
+    name: 'Rasagna Reddipalli',
+    role: 'Salesforce Developer',
+    linkedin: 'https://www.linkedin.com/in/r-rasagna/',
+    image: '/assets/team/Rasagna.jpg',
+  },
 ];
 
 type Mascot = {
@@ -315,8 +330,10 @@ export default function TeamPage() {
       </section>
 
       <div className="container mx-auto px-6 py-20">
-        {/* Leadership Section */}
-        <div className="mb-32">
+        {SPLIT_LEADERSHIP ? (
+        <>
+        {/* Executive Leadership Section */}
+        <div className="mb-24">
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -328,10 +345,48 @@ export default function TeamPage() {
              <div className="h-px bg-gradient-to-r from-transparent via-brand-cyan/50 to-transparent flex-grow" />
           </motion.div>
 
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
+            {ExecutiveLeadership.map((l, i) => <Card key={i} index={i} isLeader member={l} />)}
+          </div>
+        </div>
+
+        {/* Delivery Leadership Section */}
+        <div className="mb-32">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="flex items-center gap-4 mb-16"
+          >
+             <div className="h-px bg-gradient-to-r from-transparent via-brand-cyan/50 to-transparent flex-grow" />
+             <h2 className="font-space text-lg font-bold text-brand-cyan tracking-[0.2em] uppercase glow-text">Delivery Leadership</h2>
+             <div className="h-px bg-gradient-to-r from-transparent via-brand-cyan/50 to-transparent flex-grow" />
+          </motion.div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+            {DeliveryLeadership.map((l, i) => <Card key={i} index={i} isLeader member={l} />)}
+          </div>
+        </div>
+        </>
+        ) : (
+        /* Flat leadership (current) */
+        <div className="mb-32">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="flex items-center gap-4 mb-16"
+          >
+             <div className="h-px bg-gradient-to-r from-transparent via-brand-cyan/50 to-transparent flex-grow" />
+             <h2 className="font-space text-lg font-bold text-brand-cyan tracking-[0.2em] uppercase glow-text">Our Leadership</h2>
+             <div className="h-px bg-gradient-to-r from-transparent via-brand-cyan/50 to-transparent flex-grow" />
+          </motion.div>
+
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
             {Leadership.map((l, i) => <Card key={i} index={i} isLeader member={l} />)}
           </div>
         </div>
+        )}
 
         {/* Team Section */}
         <div>
@@ -342,12 +397,16 @@ export default function TeamPage() {
             className="flex items-center gap-4 mb-16"
           >
              <div className="h-px bg-slate-800 flex-grow" />
-             <h2 className="font-space text-sm font-bold text-slate-500 tracking-[0.2em] uppercase">The Delivery Team</h2>
+             <h2 className="font-space text-sm font-bold text-slate-500 tracking-[0.2em] uppercase">Our Delivery Team</h2>
              <div className="h-px bg-slate-800 flex-grow" />
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {Team.map((t, i) => <Card key={i} index={i} member={t} />)}
+          <div className="flex flex-wrap justify-center gap-6">
+            {Team.map((t, i) => (
+              <div key={i} className="w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(25%-1.125rem)]">
+                <Card index={i} member={t} />
+              </div>
+            ))}
           </div>
         </div>
 
