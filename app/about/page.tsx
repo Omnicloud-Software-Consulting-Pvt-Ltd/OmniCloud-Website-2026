@@ -3,6 +3,7 @@
 import { useRef } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { Target, Lightbulb, TrendingUp, Globe } from 'lucide-react';
+import Fireflies from '../../components/Fireflies';
 
 const content = [
   {
@@ -52,17 +53,18 @@ export default function About() {
   return (
     <div className="bg-slate-950 font-sans">
       {/* Hero */}
-      <section className="h-[70vh] flex flex-col justify-center items-center text-center px-6 border-b border-slate-900">
-        <motion.h1 
+      <section className="relative h-[70vh] flex flex-col justify-center items-center text-center px-6 border-b border-slate-900 overflow-hidden">
+        <Fireflies className="z-0" />
+        <motion.h1
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8 }}
-          className="font-space text-6xl md:text-9xl font-black text-white tracking-tighter mb-8"
+          className="relative z-10 font-space text-6xl md:text-9xl font-black text-white tracking-tighter mb-8"
         >
           WE ARE <span className="text-brand-cyan">OMNICLOUD.</span>
         </motion.h1>
-        <p className="text-xl text-slate-400 max-w-2xl font-light">
-          Architects of the revenue revolution. We simplify the complex.
+        <p className="relative z-10 text-xl text-slate-400 max-w-2xl font-light">
+          Architects of the Revenue Revolution. We Simplify the Complex.
         </p>
       </section>
 

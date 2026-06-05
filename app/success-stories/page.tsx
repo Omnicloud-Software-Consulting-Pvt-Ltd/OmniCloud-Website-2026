@@ -2,6 +2,7 @@
 
 import { Check, Cpu, Layers, Shield, Clock, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
+import Fireflies from '../../components/Fireflies';
 
 export default function SuccessStories() {
   const stories = [
@@ -42,7 +43,8 @@ export default function SuccessStories() {
   return (
     <div className="bg-slate-950 min-h-screen pb-20">
       {/* Header */}
-      <div className="bg-slate-900 py-20 border-b border-slate-800">
+      <div className="relative overflow-hidden bg-slate-900 py-20 border-b border-slate-800">
+        <Fireflies className="z-0" />
         <div className="container mx-auto px-6 text-center">
           <h1 className="text-5xl font-bold text-white mb-6">Success Stories</h1>
           <p className="text-xl text-slate-400 max-w-3xl mx-auto">

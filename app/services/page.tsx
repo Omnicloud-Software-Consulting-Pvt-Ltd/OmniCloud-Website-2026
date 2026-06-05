@@ -2,6 +2,7 @@
 
 import { Layers,  Headphones,  RefreshCw, BarChart, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
+import Fireflies from '../../components/Fireflies';
 
 export default function Services() {
   const services = [
@@ -38,8 +39,9 @@ export default function Services() {
   return (
     <div className="bg-slate-950 min-h-screen pb-20">
       {/* Header */}
-      <div className="bg-slate-900 py-20 border-b border-slate-800">
-        <div className="container mx-auto px-6 text-center">
+      <div className="relative overflow-hidden bg-slate-900 py-20 border-b border-slate-800">
+        <Fireflies className="z-0" />
+        <div className="container mx-auto px-6 text-center relative z-10">
           <h1 className="text-5xl font-bold text-white mb-6">Our Services</h1>
           <p className="text-xl text-slate-400 max-w-3xl mx-auto">
             From strategic consulting to technical implementation and ongoing support, we cover the entire Salesforce lifecycle.

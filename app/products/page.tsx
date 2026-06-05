@@ -2,6 +2,7 @@
 
 import { Cloud, Calculator, Receipt, ShoppingCart, RefreshCw, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
+import Fireflies from '../../components/Fireflies';
 
 export default function ProductsPage() {
   const products = [
@@ -14,12 +15,15 @@ export default function ProductsPage() {
 
   return (
     <div className="bg-slate-950 min-h-screen pb-20 pt-20">
-      <div className="container mx-auto px-6 text-center mb-16">
-        <h1 className="text-5xl font-bold text-white mb-6">Our Products</h1>
-        <p className="text-xl text-slate-400 max-w-2xl mx-auto">
-          Explore our suite of specialized Salesforce solutions designed to accelerate your business growth.
-        </p>
-      </div>
+      <section className="relative overflow-hidden mb-16">
+        <Fireflies className="z-0" />
+        <div className="container mx-auto px-6 text-center relative z-10">
+          <h1 className="text-5xl font-bold text-white mb-6">Our Products</h1>
+          <p className="text-xl text-slate-400 max-w-2xl mx-auto">
+            Explore our suite of specialized Salesforce solutions designed to accelerate your business growth.
+          </p>
+        </div>
+      </section>
 
       <div className="container mx-auto px-6">
         <div className="grid md:grid-cols-3 gap-8">

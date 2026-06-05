@@ -2,6 +2,7 @@
 
 import { Mail, Phone, MapPin, Send } from 'lucide-react';
 import { useState } from 'react';
+import Fireflies from '../../components/Fireflies';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -28,8 +29,9 @@ export default function Contact() {
   return (
     <div className="bg-slate-950 min-h-screen pb-20">
       {/* Header */}
-      <div className="bg-slate-900 py-20 border-b border-slate-800">
-        <div className="container mx-auto px-6 text-center">
+      <div className="relative overflow-hidden bg-slate-900 py-20 border-b border-slate-800">
+        <Fireflies className="z-0" />
+        <div className="container mx-auto px-6 text-center relative z-10">
           <h1 className="text-5xl font-bold text-white mb-6">Contact Us</h1>
           <p className="text-xl text-slate-400 max-w-3xl mx-auto">
             Ready to start your transformation? Reach out to us today.

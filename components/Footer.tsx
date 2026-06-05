@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { Mail } from 'lucide-react';
+import { Mail, Linkedin } from 'lucide-react';
 
 export default function Footer() {
   return (
@@ -14,9 +14,6 @@ export default function Footer() {
             <p className="text-slate-400 max-w-sm mb-6 text-justify">
               OmniCloud Consulting Inc. is a boutique Salesforce consulting partner built for the agentic era. We help high-growth enterprises reimagine their revenue operations &mdash; deploying intelligent agents across their CRM landscape cutting across sales, service, quote-to-cash lifecycle, and bringing precision to CPQ, Billing, and revenue strategy through Agentic Revenue Cloud. This is RevOps, reinvented.
             </p>
-            <div className="flex gap-4 opacity-70">
-               {/* Social placeholders if needed */}
-            </div>
           </div>
 
           {/* Links */}
@@ -40,12 +37,18 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-2">
                 <Image src="/assets/icon-hyderabad.svg" alt="" width={18} height={18} className="opacity-90 shrink-0" />
-                Hyderabad, Telangana, India
+                Hyderabad, India
               </li>
               <li>
                 <a href="mailto:sales@omnicloudconsulting.com" className="flex items-center gap-2 hover:text-brand-cyan transition-colors">
                   <Mail className="w-[18px] h-[18px] text-brand-cyan shrink-0" />
                   sales@omnicloudconsulting.com
+                </a>
+              </li>
+              <li>
+                <a href="https://www.linkedin.com/company/omnicloud-software-consulting" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-brand-cyan transition-colors">
+                  <Linkedin className="w-[18px] h-[18px] text-brand-cyan shrink-0" />
+                  LinkedIn
                 </a>
               </li>
             </ul>

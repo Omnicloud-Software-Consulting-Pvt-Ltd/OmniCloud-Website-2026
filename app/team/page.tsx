@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { User, Linkedin, Twitter } from 'lucide-react';
 import Image from 'next/image';
+import Fireflies from '../../components/Fireflies';
 
 type Member = {
   name?: string;
@@ -224,6 +225,7 @@ export default function TeamPage() {
       {/* Hero */}
       <section className="relative h-[60vh] flex items-center justify-center overflow-hidden bg-slate-900 border-b border-slate-800">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-900/10 via-slate-950 to-slate-950" />
+        <Fireflies className="z-0" />
         <div className="container mx-auto px-6 relative z-10 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
