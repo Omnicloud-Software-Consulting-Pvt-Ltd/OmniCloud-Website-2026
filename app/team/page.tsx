@@ -40,17 +40,16 @@ const Leadership: Member[] = [
     linkedin: 'https://www.linkedin.com/in/karthik-nagalingam-008a3ba2/',
     image: '/assets/team/Karthik.jpg',
   },
-  ...Array.from({ length: 1 }).map(() => ({} as Member)),
-];
-
-// Delivery team — first entry tagged; rest are placeholders for now.
-const Team: Member[] = [
   {
     name: 'Sanjay Bhatt',
     role: 'Controller',
     linkedin: 'https://www.linkedin.com/in/sanjay-bhatt-94882613/',
     image: '/assets/team/Sanjay.jpg',
   },
+];
+
+// Delivery team — first entry tagged; rest are placeholders for now.
+const Team: Member[] = [
   {
     name: 'Kabi Gadal',
     role: 'Senior Salesforce Developer',
@@ -129,7 +128,7 @@ const Team: Member[] = [
     linkedin: 'https://www.linkedin.com/in/anusha-kondala/',
     // image: TODO — add photo later
   },
-  ...Array.from({ length: 6 }).map(() => ({} as Member)),
+  ...Array.from({ length: 7 }).map(() => ({} as Member)),
 ];
 
 const Card = ({ isLeader = false, index, member = {} }: { isLeader?: boolean, index: number, member?: Member }) => {
