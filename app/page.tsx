@@ -9,6 +9,61 @@ import { MouseEvent } from 'react';
 
 // --- COMPONENTS ---
 
+// Subtle ambient "fireflies" — slow-drifting, twinkling cyan dots.
+// Positions are fixed (no randomness) to avoid SSR hydration mismatches.
+const FIREFLIES = [
+  { left: '5%',  top: '24%', size: 6, delay: 0.0, dur: 5,  dx: 28,  dy: -34, max: 0.60 },
+  { left: '10%', top: '60%', size: 4, delay: 1.1, dur: 6,  dx: -24, dy: -28, max: 0.45 },
+  { left: '16%', top: '38%', size: 7, delay: 0.6, dur: 4.5, dx: 34, dy: 24,  max: 0.65 },
+  { left: '21%', top: '72%', size: 4, delay: 2.0, dur: 5.5, dx: -28, dy: -22, max: 0.42 },
+  { left: '27%', top: '20%', size: 5, delay: 1.5, dur: 6.5, dx: 26, dy: 32,  max: 0.55 },
+  { left: '33%', top: '64%', size: 4, delay: 0.3, dur: 4.5, dx: -30, dy: -26, max: 0.45 },
+  { left: '39%', top: '32%', size: 6, delay: 0.9, dur: 5,  dx: 30,  dy: -30, max: 0.58 },
+  { left: '45%', top: '78%', size: 4, delay: 2.2, dur: 6,  dx: -22, dy: 26,  max: 0.42 },
+  { left: '50%', top: '26%', size: 7, delay: 0.7, dur: 4,  dx: 24,  dy: 34,  max: 0.62 },
+  { left: '56%', top: '58%', size: 4, delay: 2.6, dur: 5.5, dx: -32, dy: -24, max: 0.44 },
+  { left: '62%', top: '34%', size: 6, delay: 0.4, dur: 4.5, dx: 28, dy: 28,  max: 0.60 },
+  { left: '68%', top: '70%', size: 4, delay: 1.6, dur: 6,  dx: -24, dy: -30, max: 0.42 },
+  { left: '73%', top: '24%', size: 5, delay: 1.0, dur: 5,  dx: 22,  dy: 32,  max: 0.55 },
+  { left: '79%', top: '56%', size: 4, delay: 2.8, dur: 4.5, dx: -34, dy: -22, max: 0.45 },
+  { left: '84%', top: '36%', size: 7, delay: 0.5, dur: 4,  dx: 26,  dy: 30,  max: 0.64 },
+  { left: '90%', top: '68%', size: 4, delay: 1.9, dur: 6,  dx: -22, dy: -34, max: 0.42 },
+  { left: '95%', top: '40%', size: 6, delay: 0.8, dur: 5,  dx: 28,  dy: 24,  max: 0.58 },
+  { left: '8%',  top: '46%', size: 5, delay: 2.4, dur: 5.5, dx: 30, dy: 20,  max: 0.50 },
+  { left: '30%', top: '50%', size: 5, delay: 1.3, dur: 4.5, dx: -28, dy: -28, max: 0.52 },
+  { left: '43%', top: '48%', size: 4, delay: 3.0, dur: 6,  dx: 24,  dy: 30,  max: 0.44 },
+  { left: '54%', top: '44%', size: 6, delay: 0.2, dur: 5,  dx: -30, dy: -24, max: 0.56 },
+  { left: '66%', top: '50%', size: 4, delay: 2.1, dur: 4.5, dx: 26, dy: 28,  max: 0.46 },
+  { left: '77%', top: '46%', size: 5, delay: 1.4, dur: 5.5, dx: -24, dy: -32, max: 0.52 },
+  { left: '88%', top: '52%', size: 6, delay: 0.6, dur: 4,  dx: 30,  dy: 22,  max: 0.58 },
+  { left: '18%', top: '54%', size: 4, delay: 1.7, dur: 5,  dx: -26, dy: 30,  max: 0.46 },
+  { left: '48%', top: '62%', size: 6, delay: 2.5, dur: 4.5, dx: 28, dy: -28, max: 0.56 },
+  { left: '70%', top: '40%', size: 5, delay: 0.9, dur: 6,  dx: -30, dy: 24,  max: 0.52 },
+  { left: '92%', top: '30%', size: 5, delay: 1.2, dur: 5,  dx: 24,  dy: -30, max: 0.54 },
+];
+
+function Fireflies() {
+  return (
+    <div className="pointer-events-none absolute inset-0 z-10 overflow-hidden">
+      {FIREFLIES.map((f, i) => (
+        <motion.span
+          key={i}
+          className="absolute rounded-full bg-brand-cyan"
+          style={{
+            left: f.left,
+            top: f.top,
+            width: f.size,
+            height: f.size,
+            boxShadow: '0 0 8px 2px rgba(0, 181, 226, 0.55)',
+          }}
+          animate={{ x: [0, f.dx, 0], y: [0, f.dy, 0], opacity: [0, f.max, 0] }}
+          transition={{ duration: f.dur, delay: f.delay, repeat: Infinity, ease: 'easeInOut' }}
+        />
+      ))}
+    </div>
+  );
+}
+
 function HeroHighlight({ children }: { children: React.ReactNode }) {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -25,6 +80,7 @@ function HeroHighlight({ children }: { children: React.ReactNode }) {
       onMouseMove={handleMouseMove}
     >
       <div className="absolute inset-0 bg-dot-thick-neutral-800 pointer-events-none" />
+      <Fireflies />
       <motion.div
         className="pointer-events-none absolute -inset-px rounded-xl opacity-0 transition duration-300 group-hover:opacity-100"
         style={{
@@ -78,9 +134,9 @@ export default function Home() {
             className="flex flex-col items-center"
           >
             <div className="mb-8 flex items-center gap-6 transition-all duration-500">
-                <Image src="/assets/logo.png" alt="OmniCloud" width={180} height={60} className="h-12 w-auto object-contain" />
+                <Image src="/assets/logo-ondark.png" alt="OmniCloud" width={240} height={80} className="h-16 w-auto object-contain" />
                 <div className="h-8 w-[1px] bg-slate-700" />
-                <Image src="/assets/salesforce-partner.png" alt="Salesforce Partner" width={140} height={50} className="h-12 w-auto object-contain" />
+                <Image src="/assets/salesforce-partner-wide.png" alt="Salesforce Partner" width={300} height={145} className="h-[4.75rem] w-auto object-contain" />
             </div>
 
             <h1 className="max-w-5xl font-space text-6xl md:text-8xl font-black tracking-tighter text-white mb-8 leading-[0.9]">

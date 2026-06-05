@@ -8,7 +8,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center gap-4 mb-6">
-                <Image src="/assets/logo.png" alt="OmniCloud" width={180} height={60} className="h-12 w-auto object-contain" />
+                <Image src="/assets/logo-ondark.png" alt="OmniCloud" width={180} height={60} className="h-16 w-auto object-contain" />
             </div>
             <p className="text-slate-400 max-w-sm mb-6">
               OmniCloud Software Consulting Private Limited is a boutique Salesforce.com consulting firm specializing in Revenue Cloud projects.
@@ -46,7 +46,7 @@ export default function Footer() {
             © {new Date().getFullYear()} OmniCloud Software Consulting. All rights reserved.
           </div>
           <div className="flex items-center gap-6 transition-all">
-             <Image src="/assets/salesforce-partner.png" alt="Salesforce Partner" width={100} height={40} className="h-8 w-auto object-contain" />
+             <Image src="/assets/salesforce-partner-wide.png" alt="Salesforce Partner" width={250} height={120} className="h-10 w-auto object-contain" />
           </div>
         </div>
       </div>

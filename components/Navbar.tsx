@@ -102,7 +102,7 @@ export default function Navbar() {
           <Link href="/" className="flex items-center gap-3 mr-8 group relative z-20">
              <div className="relative">
                 <div className="absolute inset-0 bg-brand-cyan/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
-                <Image src="/assets/logo.png" alt="OmniCloud" width={140} height={40} className="h-8 w-auto object-contain relative z-10" />
+                <Image src="/assets/logo-ondark.png" alt="OmniCloud" width={175} height={50} className="h-10 w-auto object-contain relative z-10" />
              </div>
           </Link>
 
