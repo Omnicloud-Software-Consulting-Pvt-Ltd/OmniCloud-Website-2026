@@ -131,6 +131,10 @@ const Team: Member[] = [
   ...Array.from({ length: 7 }).map(() => ({} as Member)),
 ];
 
+// Social links temporarily disabled to discourage poaching.
+// Profile data is kept below — set this to true to re-enable the icons/links.
+const SHOW_SOCIAL_LINKS = false;
+
 const Card = ({ isLeader = false, index, member = {} }: { isLeader?: boolean, index: number, member?: Member }) => {
   const name = member.name ?? (isLeader ? "Executive Leader" : "Team Member");
   const role = member.role ?? (isLeader ? "Designation" : "Role Title");
@@ -169,7 +173,8 @@ const Card = ({ isLeader = false, index, member = {} }: { isLeader?: boolean, in
         </div>
       </div>
 
-      {/* Socials */}
+      {/* Socials — temporarily disabled (anti-poaching). Set SHOW_SOCIAL_LINKS = true to re-enable. */}
+      {SHOW_SOCIAL_LINKS && (
       <div className="mt-6 flex gap-4 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 delay-100">
         {hasLinks ? (
           <>
@@ -207,6 +212,7 @@ const Card = ({ isLeader = false, index, member = {} }: { isLeader?: boolean, in
           </>
         )}
       </div>
+      )}
     </div>
   </motion.div>
   );
