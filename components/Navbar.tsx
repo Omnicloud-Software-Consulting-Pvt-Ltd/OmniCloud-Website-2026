@@ -167,15 +167,8 @@ export default function Navbar() {
 
           {/* CTA & Mobile Toggle */}
           <div className="flex items-center gap-4 relative z-20">
-            <Link 
-              href="/rca"
-              className="hidden md:block text-xs font-bold text-brand-cyan tracking-wider uppercase hover:text-white transition-colors"
-            >
-              RCA Deck
-            </Link>
-
-            <Link 
-              href="/contact" 
+            <Link
+              href="/contact"
               className="hidden md:flex items-center gap-2 bg-brand-cyan text-black px-5 py-2 rounded-full font-bold text-sm hover:bg-white hover:scale-105 transition-all shadow-[0_0_20px_rgba(0,181,226,0.3)]"
             >
               <Zap className="w-4 h-4 fill-black" /> Let's Talk
@@ -226,14 +219,6 @@ export default function Navbar() {
                   </Link>
                 </motion.div>
               ))}
-              <div className="h-px bg-slate-800 w-full my-4" />
-              <Link 
-                href="/rca"
-                onClick={() => setIsMobileOpen(false)}
-                className="text-brand-cyan font-mono text-sm tracking-widest uppercase"
-              >
-                View Original Pitch Deck
-              </Link>
             </div>
           </motion.div>
         )}
