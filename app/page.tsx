@@ -5,46 +5,53 @@ import { ArrowRight, Globe, Cpu, Users, Layers, Zap, MousePointer2 } from 'lucid
 import Link from 'next/link';
 import Image from 'next/image';
 import ClientMarquee from '../components/ClientMarquee';
-import { MouseEvent } from 'react';
+import { MouseEvent, useEffect, useRef } from 'react';
 
 // --- COMPONENTS ---
 
 // Subtle ambient "fireflies" — slow-drifting, twinkling cyan dots.
 // Positions are fixed (no randomness) to avoid SSR hydration mismatches.
 const FIREFLIES = [
-  { left: '5%',  top: '24%', size: 6, delay: 0.0, dur: 5,  dx: 28,  dy: -34, max: 0.60 },
-  { left: '10%', top: '60%', size: 4, delay: 1.1, dur: 6,  dx: -24, dy: -28, max: 0.45 },
-  { left: '16%', top: '38%', size: 7, delay: 0.6, dur: 4.5, dx: 34, dy: 24,  max: 0.65 },
-  { left: '21%', top: '72%', size: 4, delay: 2.0, dur: 5.5, dx: -28, dy: -22, max: 0.42 },
-  { left: '27%', top: '20%', size: 5, delay: 1.5, dur: 6.5, dx: 26, dy: 32,  max: 0.55 },
-  { left: '33%', top: '64%', size: 4, delay: 0.3, dur: 4.5, dx: -30, dy: -26, max: 0.45 },
-  { left: '39%', top: '32%', size: 6, delay: 0.9, dur: 5,  dx: 30,  dy: -30, max: 0.58 },
-  { left: '45%', top: '78%', size: 4, delay: 2.2, dur: 6,  dx: -22, dy: 26,  max: 0.42 },
-  { left: '50%', top: '26%', size: 7, delay: 0.7, dur: 4,  dx: 24,  dy: 34,  max: 0.62 },
-  { left: '56%', top: '58%', size: 4, delay: 2.6, dur: 5.5, dx: -32, dy: -24, max: 0.44 },
-  { left: '62%', top: '34%', size: 6, delay: 0.4, dur: 4.5, dx: 28, dy: 28,  max: 0.60 },
-  { left: '68%', top: '70%', size: 4, delay: 1.6, dur: 6,  dx: -24, dy: -30, max: 0.42 },
-  { left: '73%', top: '24%', size: 5, delay: 1.0, dur: 5,  dx: 22,  dy: 32,  max: 0.55 },
-  { left: '79%', top: '56%', size: 4, delay: 2.8, dur: 4.5, dx: -34, dy: -22, max: 0.45 },
-  { left: '84%', top: '36%', size: 7, delay: 0.5, dur: 4,  dx: 26,  dy: 30,  max: 0.64 },
-  { left: '90%', top: '68%', size: 4, delay: 1.9, dur: 6,  dx: -22, dy: -34, max: 0.42 },
-  { left: '95%', top: '40%', size: 6, delay: 0.8, dur: 5,  dx: 28,  dy: 24,  max: 0.58 },
-  { left: '8%',  top: '46%', size: 5, delay: 2.4, dur: 5.5, dx: 30, dy: 20,  max: 0.50 },
-  { left: '30%', top: '50%', size: 5, delay: 1.3, dur: 4.5, dx: -28, dy: -28, max: 0.52 },
-  { left: '43%', top: '48%', size: 4, delay: 3.0, dur: 6,  dx: 24,  dy: 30,  max: 0.44 },
-  { left: '54%', top: '44%', size: 6, delay: 0.2, dur: 5,  dx: -30, dy: -24, max: 0.56 },
-  { left: '66%', top: '50%', size: 4, delay: 2.1, dur: 4.5, dx: 26, dy: 28,  max: 0.46 },
-  { left: '77%', top: '46%', size: 5, delay: 1.4, dur: 5.5, dx: -24, dy: -32, max: 0.52 },
-  { left: '88%', top: '52%', size: 6, delay: 0.6, dur: 4,  dx: 30,  dy: 22,  max: 0.58 },
-  { left: '18%', top: '54%', size: 4, delay: 1.7, dur: 5,  dx: -26, dy: 30,  max: 0.46 },
-  { left: '48%', top: '62%', size: 6, delay: 2.5, dur: 4.5, dx: 28, dy: -28, max: 0.56 },
-  { left: '70%', top: '40%', size: 5, delay: 0.9, dur: 6,  dx: -30, dy: 24,  max: 0.52 },
-  { left: '92%', top: '30%', size: 5, delay: 1.2, dur: 5,  dx: 24,  dy: -30, max: 0.54 },
+  // Row 1 (top edge)
+  { left: '8%',  top: '9%',  size: 6, delay: 0.0, dur: 5,   dx: 28,  dy: -30, max: 0.58 },
+  { left: '24%', top: '6%',  size: 4, delay: 1.2, dur: 6,   dx: -22, dy: 26,  max: 0.44 },
+  { left: '40%', top: '12%', size: 5, delay: 0.6, dur: 4.5, dx: 30,  dy: 24,  max: 0.55 },
+  { left: '56%', top: '8%',  size: 7, delay: 2.0, dur: 5.5, dx: -26, dy: -28, max: 0.64 },
+  { left: '72%', top: '10%', size: 4, delay: 1.5, dur: 6.5, dx: 24,  dy: 30,  max: 0.42 },
+  { left: '88%', top: '6%',  size: 6, delay: 0.3, dur: 4.5, dx: -30, dy: 22,  max: 0.58 },
+  // Row 2
+  { left: '4%',  top: '30%', size: 5, delay: 0.9, dur: 5,   dx: 26,  dy: -32, max: 0.52 },
+  { left: '22%', top: '33%', size: 4, delay: 2.2, dur: 6,   dx: -24, dy: 28,  max: 0.44 },
+  { left: '38%', top: '27%', size: 6, delay: 0.7, dur: 4,   dx: 32,  dy: 26,  max: 0.60 },
+  { left: '57%', top: '31%', size: 4, delay: 2.6, dur: 5.5, dx: -28, dy: -24, max: 0.45 },
+  { left: '74%', top: '28%', size: 7, delay: 0.4, dur: 4.5, dx: 26,  dy: 30,  max: 0.64 },
+  { left: '92%', top: '32%', size: 4, delay: 1.6, dur: 6,   dx: -22, dy: -30, max: 0.42 },
+  // Row 3 (middle)
+  { left: '9%',  top: '50%', size: 5, delay: 1.0, dur: 5,   dx: 30,  dy: 24,  max: 0.54 },
+  { left: '26%', top: '47%', size: 4, delay: 2.8, dur: 4.5, dx: -26, dy: -28, max: 0.46 },
+  { left: '43%', top: '53%', size: 6, delay: 0.5, dur: 4,   dx: 28,  dy: 30,  max: 0.58 },
+  { left: '58%', top: '48%', size: 4, delay: 1.9, dur: 6,   dx: -30, dy: 22,  max: 0.44 },
+  { left: '75%', top: '52%', size: 5, delay: 0.8, dur: 5,   dx: 24,  dy: 28,  max: 0.52 },
+  { left: '90%', top: '46%', size: 6, delay: 2.4, dur: 4.5, dx: -28, dy: -26, max: 0.56 },
+  // Row 4
+  { left: '5%',  top: '70%', size: 4, delay: 1.3, dur: 5.5, dx: 26,  dy: 30,  max: 0.46 },
+  { left: '23%', top: '73%', size: 6, delay: 3.0, dur: 4.5, dx: -24, dy: -28, max: 0.56 },
+  { left: '41%', top: '67%', size: 5, delay: 0.2, dur: 5,   dx: 30,  dy: 24,  max: 0.54 },
+  { left: '56%', top: '71%', size: 4, delay: 2.1, dur: 6,   dx: -26, dy: 28,  max: 0.44 },
+  { left: '73%', top: '69%', size: 6, delay: 1.4, dur: 4.5, dx: 28,  dy: -30, max: 0.58 },
+  { left: '91%', top: '72%', size: 4, delay: 0.6, dur: 5.5, dx: -22, dy: 26,  max: 0.45 },
+  // Row 5 (bottom edge)
+  { left: '11%', top: '90%', size: 5, delay: 1.7, dur: 5,   dx: 28,  dy: -26, max: 0.52 },
+  { left: '27%', top: '94%', size: 4, delay: 2.5, dur: 4.5, dx: -30, dy: 24,  max: 0.44 },
+  { left: '42%', top: '88%', size: 6, delay: 0.9, dur: 4,   dx: 26,  dy: 30,  max: 0.58 },
+  { left: '58%', top: '92%', size: 4, delay: 3.2, dur: 6,   dx: -24, dy: -28, max: 0.42 },
+  { left: '74%', top: '90%', size: 5, delay: 1.1, dur: 5,   dx: 30,  dy: 26,  max: 0.54 },
+  { left: '89%', top: '95%', size: 6, delay: 0.4, dur: 4.5, dx: -28, dy: -24, max: 0.56 },
 ];
 
-function Fireflies() {
+function Fireflies({ className = "z-10" }: { className?: string }) {
   return (
-    <div className="pointer-events-none absolute inset-0 z-10 overflow-hidden">
+    <div className={`pointer-events-none absolute inset-0 overflow-hidden ${className}`}>
       {FIREFLIES.map((f, i) => (
         <motion.span
           key={i}
@@ -65,8 +72,19 @@ function Fireflies() {
 }
 
 function HeroHighlight({ children }: { children: React.ReactNode }) {
+  const ref = useRef<HTMLDivElement>(null);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
+
+  // On load, center the glow in the hero; it then follows the cursor on move.
+  useEffect(() => {
+    const el = ref.current;
+    if (el) {
+      const { width, height } = el.getBoundingClientRect();
+      mouseX.set(width / 2);
+      mouseY.set(height / 2);
+    }
+  }, [mouseX, mouseY]);
 
   function handleMouseMove({ currentTarget, clientX, clientY }: MouseEvent) {
     const { left, top } = currentTarget.getBoundingClientRect();
@@ -76,13 +94,17 @@ function HeroHighlight({ children }: { children: React.ReactNode }) {
 
   return (
     <div
-      className="relative flex min-h-[90vh] w-full items-center justify-center overflow-hidden bg-slate-950 group"
+      ref={ref}
+      className="relative flex min-h-[80vh] w-full items-center justify-center overflow-hidden bg-slate-950 group"
       onMouseMove={handleMouseMove}
     >
       <div className="absolute inset-0 bg-dot-thick-neutral-800 pointer-events-none" />
       <Fireflies />
       <motion.div
-        className="pointer-events-none absolute -inset-px rounded-xl opacity-0 transition duration-300 group-hover:opacity-100"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.2, ease: "easeOut" }}
+        className="pointer-events-none absolute -inset-px rounded-xl"
         style={{
           background: useMotionTemplate`
             radial-gradient(
@@ -165,7 +187,8 @@ export default function Home() {
 
       {/* 3. BENTO GRID SERVICES */}
       <section className="py-32 relative">
-        <div className="container mx-auto px-6">
+        <Fireflies className="z-0" />
+        <div className="container mx-auto px-6 relative z-10">
           <div className="mb-20 text-center">
             <motion.h2 
               initial={{ opacity: 0, y: 20 }}
@@ -191,7 +214,7 @@ export default function Home() {
             {/* Side Cards */}
             <BentoCard 
               title="Global Delivery" 
-              desc="24/7 execution with offices in US, Canada & India." 
+              desc="24/7 execution with offices in Canada & India."
               icon={Globe} 
               delay={0.1}
             />
@@ -221,8 +244,11 @@ export default function Home() {
       </section>
 
       {/* 2. INFINITE SCROLL CLIENTS (Moved here) */}
-      <div className="relative z-10 bg-slate-950 pb-20 pt-10">
-         <ClientMarquee />
+      <div className="relative z-10 bg-slate-950 pb-20 pt-10 overflow-hidden">
+         <Fireflies className="z-0" />
+         <div className="relative z-10">
+            <ClientMarquee />
+         </div>
       </div>
 
       {/* 4. PARALLAX CTA */}
@@ -230,7 +256,8 @@ export default function Home() {
         <div className="absolute inset-0 bg-brand-cyan/5">
            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-100 contrast-150 mix-blend-overlay"></div>
         </div>
-        
+        <Fireflies className="z-0" />
+
         <motion.div style={{ y }} className="container mx-auto px-6 text-center relative z-10">
            <h2 className="font-space text-5xl md:text-8xl font-black text-white mb-8 tracking-tighter">
              READY TO <span className="text-brand-cyan">SCALE?</span>

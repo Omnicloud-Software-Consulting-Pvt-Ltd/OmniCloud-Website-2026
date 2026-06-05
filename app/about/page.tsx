@@ -21,7 +21,7 @@ const content = [
   },
   {
     title: "Global Scale",
-    description: "Boutique attention, enterprise reach. With hubs in Toronto, Texas, and Hyderabad, we deliver a 24/7 follow-the-sun model that keeps your projects moving while the world sleeps.",
+    description: "Boutique attention, enterprise reach. With hubs in Toronto and Hyderabad, we deliver a 24/7 follow-the-sun model that keeps your projects moving while the world sleeps.",
     icon: Globe,
     color: "bg-blue-500",
     text_color: "text-white"
