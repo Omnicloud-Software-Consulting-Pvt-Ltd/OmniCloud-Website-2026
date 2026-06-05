@@ -61,15 +61,17 @@ const Team: Member[] = [
   },
   {
     name: 'Charan Sai Penugoti',
-    role: 'Consultant / Team Lead',
+    role: 'Salesforce Developer',
     linkedin: 'https://www.linkedin.com/in/charan-sai-penugoti-11835221a/',
     image: '/assets/team/Charan.png',
+    bio: 'Disciplined, driven, and wise beyond his years, Charan brings urgency, curiosity, and follow-through to every challenge. A deep learner and true finisher, he dives into technical tasks with focus and a passion for solutioning. Highly disciplined and organized, he approaches work with the same dedication he brings to fitness and calisthenics. Grounded by family and driven by excellence, Charan turns ideas into outcomes.',
   },
   {
     name: 'Bhargavi Seelamanthula',
     role: 'Salesforce Developer',
     linkedin: 'https://www.linkedin.com/in/bhargavi-seelamanthula-916904250/',
     image: '/assets/team/BhargaviS.jpg',
+    bio: 'Our little master with a leader’s mindset, Bhargavi is intelligent, committed, and mature beyond her years. With a strong work ethic and a seasoned perspective, she brings clarity, confidence, and presence of mind to every situation. A natural leader, she handles uncertainty with calm determination and thinks ahead with purpose. Bhargavi’s dedication, confidence, and ability to rise to any challenge make her a powerful force within the team.',
   },
   {
     name: 'Prakashraj Kodimunja',
