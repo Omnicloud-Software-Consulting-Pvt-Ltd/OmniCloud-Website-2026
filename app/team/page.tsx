@@ -126,7 +126,7 @@ const Team: Member[] = [
     name: 'Anusha Kondala',
     role: 'Salesforce Developer',
     linkedin: 'https://www.linkedin.com/in/anusha-kondala/',
-    // image: TODO — add photo later
+    image: '/assets/team/Anusha.jpg',
   },
   ...Array.from({ length: 7 }).map(() => ({} as Member)),
 ];
