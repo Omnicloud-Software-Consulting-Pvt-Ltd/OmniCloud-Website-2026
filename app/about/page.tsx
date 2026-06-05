@@ -64,7 +64,7 @@ export default function About() {
           WE ARE <span className="text-brand-cyan">OMNICLOUD.</span>
         </motion.h1>
         <p className="relative z-10 text-xl text-slate-400 max-w-2xl font-light">
-          Architects of the Revenue Revolution. We Simplify the Complex.
+          Architects of the RevOps Revolution. We Simplify the Complex.
         </p>
       </section>
 
