@@ -3,16 +3,15 @@
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 
-const clients = [
-  '/clients/1.png',
-  '/clients/2.png',
-  '/clients/3.png',
-  '/clients/4.png',
-  '/clients/5.png',
-  '/clients/6.png',
-  '/clients/8.png',
-  '/clients/9.png',
-  '/clients/10.png',
+// Logos marked *_Ignore in public/clients are intentionally excluded.
+// `className` trims any logo that renders oversized vs the rest.
+const clients: { src: string; className?: string }[] = [
+  { src: '/clients/JDPower.png' },
+  { src: '/clients/Nexeo.png', className: 'scale-[0.6]' },
+  { src: '/clients/Simplus.webp' },
+  { src: '/clients/virtusa.png' },
+  { src: '/clients/ISUZU.png' },
+  { src: '/clients/KGO.png', className: 'scale-[0.6]' },
 ];
 
 export default function ClientMarquee() {
@@ -29,7 +28,7 @@ export default function ClientMarquee() {
           className="flex gap-16 items-center shrink-0 pr-16"
           animate={{ x: "-50%" }}
           transition={{
-            duration: 30,
+            duration: 36,
             repeat: Infinity,
             ease: "linear",
           }}
@@ -39,10 +38,10 @@ export default function ClientMarquee() {
           {[...clients, ...clients, ...clients, ...clients].map((logo, index) => (
             <div key={index} className="relative w-48 h-20 shrink-0 mx-4">
               <Image
-                src={logo}
+                src={logo.src}
                 alt="Client Logo"
                 fill
-                className="object-contain"
+                className={`object-contain ${logo.className ?? ''}`}
               />
             </div>
           ))}

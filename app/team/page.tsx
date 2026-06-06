@@ -52,7 +52,10 @@ const DeliveryLeadership: Member[] = [
 // Leadership is shown as ONE flat section for now.
 // Flip to true to split into Executive vs Delivery leadership (planned ~6 months out).
 const SPLIT_LEADERSHIP = false;
-const Leadership: Member[] = [...ExecutiveLeadership, ...DeliveryLeadership].filter((m) => m.name);
+const Leadership: Member[] = [
+  ...[...ExecutiveLeadership, ...DeliveryLeadership].filter((m) => m.name),
+  {}, // reserved blank slot for the incoming Head of HR (Adarsh) — fill in when he joins
+];
 
 // Delivery team — first entry tagged; rest are placeholders for now.
 const Team: Member[] = [

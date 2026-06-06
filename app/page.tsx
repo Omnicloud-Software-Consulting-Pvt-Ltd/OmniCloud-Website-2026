@@ -5,6 +5,7 @@ import { ArrowRight, Globe, Cpu, Users, Layers, Zap, MousePointer2 } from 'lucid
 import Link from 'next/link';
 import Image from 'next/image';
 import ClientMarquee from '../components/ClientMarquee';
+import PartnerMarquee from '../components/PartnerMarquee';
 import Fireflies from '../components/Fireflies';
 import { MouseEvent, useEffect, useRef } from 'react';
 
@@ -189,6 +190,9 @@ export default function Home() {
             <ClientMarquee />
          </div>
       </div>
+
+      {/* TECH PARTNERS */}
+      <PartnerMarquee />
 
       {/* 4. PARALLAX CTA */}
       <section className="relative py-40 overflow-hidden flex items-center justify-center">
