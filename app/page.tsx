@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useScroll, useTransform, useMotionTemplate, useMotionValue } from 'framer-motion';
+import { motion, useMotionTemplate, useMotionValue } from 'framer-motion';
 import { ArrowRight, Globe, Cpu, Users, Layers, Zap, MousePointer2 } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -80,8 +80,6 @@ const BentoCard = ({ title, desc, icon: Icon, className = "", delay = 0 }: { tit
 );
 
 export default function Home() {
-  const { scrollYProgress } = useScroll();
-  const y = useTransform(scrollYProgress, [0, 1], [0, -100]);
 
   return (
     <div className="flex flex-col gap-0 bg-slate-950 overflow-hidden">
@@ -195,18 +193,27 @@ export default function Home() {
       <PartnerMarquee />
 
       {/* 4. PARALLAX CTA */}
-      <section className="relative py-40 overflow-hidden flex items-center justify-center">
+      <section className="relative py-20 overflow-hidden flex items-center justify-center">
         <div className="absolute inset-0 bg-brand-cyan/5">
            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-100 contrast-150 mix-blend-overlay"></div>
         </div>
         <Fireflies className="z-0" />
 
-        <motion.div style={{ y }} className="container mx-auto px-6 text-center relative z-10">
+        <motion.div className="container mx-auto px-6 text-center relative z-10">
            <h2 className="font-space text-5xl md:text-8xl font-black text-white mb-8 tracking-tighter">
              READY TO <span className="text-brand-cyan">SCALE?</span>
            </h2>
-           <Link href="/contact" className="inline-flex items-center gap-3 text-2xl font-bold text-white border-b-2 border-brand-cyan pb-1 hover:text-brand-cyan transition-colors group">
-             Start Your Project <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
+
+           <Link href="/contact" className="inline-flex items-center gap-2 text-2xl font-bold text-white hover:text-brand-cyan transition-colors group">
+             Start Your Journey
+             <Image
+               src="/assets/running-man-cyan.webp"
+               alt=""
+               width={491}
+               height={494}
+               aria-hidden="true"
+               className="h-12 w-auto brightness-0 invert transition duration-300 group-hover:translate-x-1 group-hover:brightness-100 group-hover:invert-0"
+             />
            </Link>
         </motion.div>
       </section>

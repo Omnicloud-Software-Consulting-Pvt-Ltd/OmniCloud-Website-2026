@@ -85,6 +85,7 @@ export default function Contact() {
   const captchaSettingsRef = useRef<HTMLInputElement>(null);
   const captchaContainerRef = useRef<HTMLDivElement>(null);
   const widgetIdRef = useRef<number | null>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   const keys = Object.keys(EMPTY) as (keyof FormValues)[];
   const errors = keys.reduce((acc, k) => {
@@ -150,6 +151,60 @@ export default function Contact() {
     };
   }, []);
 
+  // On landing, glide the scroll down to the form (just below the fixed navbar)
+  // so the whole form is in view without the user scrolling. Custom eased
+  // animation for a slow, buttery slide; bails out if the user scrolls.
+  useEffect(() => {
+    const NAV_OFFSET = 88; // fixed navbar height + a little breathing room
+    const DURATION = 1200; // ms — longer = slower, smoother glide
+    const easeInOutCubic = (t: number) =>
+      t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+    const root = document.documentElement;
+    const prevBehavior = root.style.scrollBehavior;
+    let frame = 0;
+    let cancelled = false;
+    const onUserScroll = () => { cancelled = true; };
+
+    const begin = requestAnimationFrame(() => {
+      const el = contentRef.current;
+      if (!el) return;
+      const startY = window.scrollY;
+      const targetY = Math.max(0, el.getBoundingClientRect().top + startY - NAV_OFFSET);
+      const dist = targetY - startY;
+      if (Math.abs(dist) < 4) return;
+
+      // step manually, so disable CSS smooth-scroll to avoid double-animation
+      root.style.scrollBehavior = 'auto';
+      window.addEventListener('wheel', onUserScroll, { passive: true });
+      window.addEventListener('touchstart', onUserScroll, { passive: true });
+      window.addEventListener('keydown', onUserScroll);
+
+      const t0 = performance.now();
+      const step = (now: number) => {
+        if (cancelled) { root.style.scrollBehavior = prevBehavior; return; }
+        const p = Math.min(1, (now - t0) / DURATION);
+        window.scrollTo(0, startY + dist * easeInOutCubic(p));
+        if (p < 1) {
+          frame = requestAnimationFrame(step);
+        } else {
+          root.style.scrollBehavior = prevBehavior;
+        }
+      };
+      frame = requestAnimationFrame(step);
+    });
+
+    return () => {
+      cancelled = true;
+      cancelAnimationFrame(begin);
+      cancelAnimationFrame(frame);
+      root.style.scrollBehavior = prevBehavior;
+      window.removeEventListener('wheel', onUserScroll);
+      window.removeEventListener('touchstart', onUserScroll);
+      window.removeEventListener('keydown', onUserScroll);
+    };
+  }, []);
+
   const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setValues((v) => ({ ...v, [name]: value }));
@@ -193,7 +248,9 @@ export default function Contact() {
       </div>
 
       {/* Content */}
-      <div className="container mx-auto px-6 py-16">
+      <div ref={contentRef} className="relative overflow-hidden py-16">
+        <Fireflies className="z-0" />
+        <div className="container mx-auto px-6 relative z-10">
         <div className="grid md:grid-cols-2 gap-16 max-w-6xl mx-auto">
           {/* Contact Info */}
           <div>
@@ -303,6 +360,7 @@ export default function Contact() {
               </>
             )}
           </div>
+        </div>
         </div>
       </div>
     </div>
