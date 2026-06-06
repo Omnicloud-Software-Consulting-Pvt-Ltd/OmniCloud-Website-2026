@@ -46,12 +46,6 @@ const DeliveryLeadership: Member[] = [
     linkedin: 'https://www.linkedin.com/in/karthik-nagalingam-008a3ba2/',
     image: '/assets/team/Karthik.jpg',
   },
-  {
-    name: 'Sanjay Bhatt',
-    role: 'Controller',
-    linkedin: 'https://www.linkedin.com/in/sanjay-bhatt-94882613/',
-    image: '/assets/team/Sanjay.jpg',
-  },
   {},
 ];
 
@@ -148,6 +142,12 @@ const Team: Member[] = [
     role: 'Salesforce Developer',
     linkedin: 'https://www.linkedin.com/in/r-rasagna/',
     image: '/assets/team/Rasagna.jpg',
+  },
+  {
+    name: 'Sanjay Bhatt',
+    role: 'Controller',
+    linkedin: 'https://www.linkedin.com/in/sanjay-bhatt-94882613/',
+    image: '/assets/team/Sanjay.jpg',
   },
 ];
 
@@ -397,7 +397,7 @@ export default function TeamPage() {
             className="flex items-center gap-4 mb-16"
           >
              <div className="h-px bg-slate-800 flex-grow" />
-             <h2 className="font-space text-sm font-bold text-slate-500 tracking-[0.2em] uppercase">Our Delivery Team</h2>
+             <h2 className="font-space text-sm font-bold text-slate-500 tracking-[0.2em] uppercase">Our Team</h2>
              <div className="h-px bg-slate-800 flex-grow" />
           </motion.div>
 
