@@ -6,16 +6,8 @@ import Fireflies from '../../components/Fireflies';
 
 export default function SuccessStories() {
   const stories = [
-    { 
-      title: "Industrial Equipment Leasing", 
-      icon: Cpu,
-      href: "/success-stories/industrial-leasing",
-      requirements: "Needed a unified lead-to-asset process for high-value machinery. Key needs included support for Lease/Sale/Rental models, automated approvals based on lease % thresholds, and real-time inventory sync with Microsoft Business Central.",
-      solution: "Implemented Revenue Cloud as the central platform. Modeled inventory as Salesforce products with bi-directional Business Central sync. Designed a single pricing procedure to handle interest rates, asset age, and discounts. Automated asset creation upon quote finalization.",
-      highlights: ["True Lead-to-Asset Automation", "Single Pricing Engine for Leases", "Smart Lease-Based Approvals", "Bi-Directional Inventory Sync"]
-    },
-    { 
-      title: "Retail Interior Solutions", 
+    {
+      title: "Retail Interior Solutions",
       icon: Layers,
       href: "/success-stories/retail-interiors",
       requirements: "Required a unified platform for end-to-end quote-to-order processing of raw & semi-built materials. Needed flexible, property-driven pricing and seamless bi-directional integration with NetSuite for finance synchronization.",
@@ -37,6 +29,14 @@ export default function SuccessStories() {
       requirements: "Needed a consumption-driven leasing model for skilled resources & machinery. Critical to quote granted hours/days, track actual usage from a 3rd party system, and automate billing for standard vs. overconsumption.",
       solution: "Implemented Revenue Cloud Consumption Management. Developed custom grant logic for overconsumption pricing. Ingested usage data directly to Assets and built a custom API-driven engine for weekly automated invoice generation.",
       highlights: ["Usage-Based Consumption Model", "Overconsumption Pricing Logic", "Weekly Automated Invoicing", "Asset-Level Billing"]
+    },
+    {
+      title: "Industrial Equipment Leasing",
+      icon: Cpu,
+      href: "/success-stories/industrial-leasing",
+      requirements: "Needed a unified lead-to-asset process for high-value machinery. Key needs included support for Lease/Sale/Rental models, automated approvals based on lease % thresholds, and real-time inventory sync with Microsoft Business Central.",
+      solution: "Implemented Revenue Cloud as the central platform. Modeled inventory as Salesforce products with bi-directional Business Central sync. Designed a single pricing procedure to handle interest rates, asset age, and discounts. Automated asset creation upon quote finalization.",
+      highlights: ["True Lead-to-Asset Automation", "Single Pricing Engine for Leases", "Smart Lease-Based Approvals", "Bi-Directional Inventory Sync"]
     }
   ];
 
